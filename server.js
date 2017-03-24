@@ -1,15 +1,17 @@
-var express      = require('express'),
-    mongoose     = require('mongoose'),
-    path         = require('path'),
-    favicon      = require('serve-favicon'),
-    passport     = require('passport'),
-    flash        = require('connect-flash'),
-    ejsLayouts   = require("express-ejs-layouts"),
-    morgan       = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser   = require('body-parser'),
-    session      = require('express-session'),
-    port         = process.env.PORT || 3000
+var express         = require('express'),
+    mongoose        = require('mongoose'),
+    path            = require('path'),
+    favicon         = require('serve-favicon'),
+    passport        = require('passport'),
+    flash           = require('connect-flash'),
+    ejsLayouts      = require("express-ejs-layouts"),
+    morgan          = require('morgan'),
+    cookieParser    = require('cookie-parser'),
+    bodyParser      = require('body-parser'),
+    session         = require('express-session'),
+    methodOverride  = require('method-override'),
+    port            = process.env.PORT || 3000
+
 
 // load env variable from .env file
 require('dotenv').config()
@@ -33,6 +35,7 @@ app.set('view engine', 'ejs')
 // app.use(ejsLayouts)
 app.set("views","./views")
 
+app.use(methodOverride('_method'))
 
 // configure passport
 app.use(session({ secret: 'WHETSTONE-CODE-SHARPENING' }))
