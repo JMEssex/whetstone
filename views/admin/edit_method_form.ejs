@@ -56,10 +56,9 @@
 
       <input class="exercise-btn" type="submit">
     </form>
-    <form method="POST" action="/methods/<%= method.id %>/delete">
-      <button class="exercise-btn"  type="submit" name="destroyMethod">
-        Delete
-      </button>
+
+    <form method="POST" action="/methods/<%= method.slug_url %>/delete">
+      <button class="exercise-btn"  type="submit" name="destroyMethod">Delete</button>
     </form>
   </body>
 </html>

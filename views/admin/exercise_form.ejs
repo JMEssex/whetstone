@@ -7,15 +7,15 @@
   <body>
     <%- include(`../partials/header`, {page: `new exercise`}) %>
 
-    <form method="post" action="/admin/exercises/new">
-
+    <form method="post" action="/exercises/new">
+    <br><br>
       <div class="form-group">
-        <label for="name">Exercise Name</label>
+        <label for="name">Exercise Name:</label>
         <input class="form-control" type="text" name="name" id="exercise" placeholder="Exercise name">
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="method">Method</label>
+        <label for="method">Method:</label>
         <select class="form-control" name="method">
           <% methods.forEach(function(method) { %>
             <option value=<%= method.id %>>
@@ -23,20 +23,36 @@
             </option>
           <% }) %>
         </select>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="language">Difficulty</label>
+        <label for="language">Difficulty:</label>
         <input class="form-control" type="number" min="1" max="8" name="difficulty" id="difficulty" placeholder="Between 1 and 8">
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="description">Prompt</label>
+        <label for="description">Prompt:</label>
         <textarea class="form-control" name="prompt" rows="3" cols="80" id="prompt" placeholder="Add description here..." ></textarea>
-      </div>
+      </div><br>
 
-      <input class="btn" type="submit">
+      <div class="form-group" id='test'>
+        <label for="tests">Test 1:</label>
+        <input class="form-control" type="text" name="tests[0][explanation]" id="test" placeholder="Ex: Reverse the string"><br>
+        <label for="tests">Test 2:</label>
+        <input class="form-control" type="text" name="tests[0].[invocation]" id="test" placeholder="Ex: test('Rob')"><br>
+        <label for="tests">Test 3:</label>
+
+        <input class="form-control" type="text" name="tests[0].[expectation]" id="test" placeholder="Ex: test('boR')">
+      </div><br>
+
+      <input class = "exercise-btn" type="button" value="Add another test" onClick="addInput('test')">
+
+      <br>
+
+      <input class="exercise-btn" type="submit">
     </form>
 
+
+    <script src="/js/exercise_form.js"> </script>
   </body>
 </html>

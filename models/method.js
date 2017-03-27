@@ -8,7 +8,7 @@ var methodSchema = new mongoose.Schema({
 	version_added: String,
 	description: String,
 	docs_url: String,
-	slug_url: String
+	slug_url: {type: String, required: true, unique: true}
 })
 
 var Method = mongoose.model('Method', methodSchema)

@@ -22,20 +22,83 @@
 Whetstone includes a large and growing library of methods and exercises. We have included a number of endpoints to make interfacing with our back-end easier. You can use the public API key `123456789` to interact with any endpoint not marked **admin**.
 
 **Methods**
+<hr>
 
-`GET /api/methods/` to see an index of all the methods in our database.
-`GET /api/methods/:id` to see the method with the matching ID.
+`GET /api/methods/` - see an index of all the methods in our database.
 
-`POST /api/methods/` create a new method, format post data like this:
+`GET /api/methods/:id` - see the method with the matching ID.
+
+`POST /api/methods/` - create a new method, format post data like this:
 
 ```js
+{
+    client_key: '123456789',
+    name: 'charCodeAt',
+    language: 'JavaScript',
+    version_added: 'JavaScript 1.2',
+    description: 'This method can be applied to any string and takes an index for an argument. It returns the UTF-16 code of the character at that index.',
+    docs_url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt',
+    slug_url: 'JS-charCodeAt'
+}
+```
 
+**admin** `PATCH /api/methods/:id` - update the method with the matching ID with patch data - it can include one or many of the fields specified above.
+
+**admin** `POST /api/methods-delete/:id` - delete the method with the matching ID. Format your post data like this:
+
+```js
+{   
+    client_key: '*****',
+    delete: true
+}
 ```
 
 **Exercises**
+<hr>
 
+`GET /api/exercises/` - see an index of all the exercises in our database.
 
-**Postman** is a great tool for testing out APIs locally!
+`GET /api/exercises/:id` - see the exercise with the matching ID.
+
+**admin** `POST /api/exercises/` - create a new exercise, format post data like this:
+
+```js
+{   
+    client_key: '*****',
+    name: 'hello',
+    method: 'JS-fundamentals',
+    difficulty: 1,
+    prompt: 'Write a function which takes a name as an argument and returns "Hello, [name]." - or just "Hello." if no name is given.',
+    tests: [
+        {
+            explanation: 'Test without name.',
+            invocation: "hello()",
+            expectation: 'Hello.'
+        },
+        {
+            explanation: 'Test with name.',
+            invocation: "hello('Bob')",
+            expectation: 'Hello, Bob.'
+        }
+    ]
+}
+```
+
+**admin** `PATCH /api/exercises/:id` - update the exercise with the matching ID with patch data - it can include one or many of the fields specified above.
+
+**admin** `POST /api/exercises-delete/:id` - delete the exercise with the matching ID, format your post data like this:
+
+```js
+{   
+    client_key: '*****',
+    delete: true
+}
+```
+
+> **Postman** is a great tool for testing APIs out locally! If you're having trouble posting complex data (we certainly did), try posting embedded arrays/objects as a series of keys and values. So the first embedded object above would become: 
+> `tests[0][explanation]: 'Test without name.'`
+> `tests[0][invocation]: 'hello('Bob')'`
+> `tests[0][expectation]: 'Hello, Bob.'`
 
 ### Technologies Used
 
@@ -86,5 +149,6 @@ Before we get to all that, we also have a number of **unsolved problems** to att
 * A better evaluation solution, once we run 1000 evaluations the API will block our requests.
 * Recurrent errors in our .ejs files - which disappear magically with apparently no changes.
 * Our sessions implementation (`connect.session()`) isn't ideal for production and is not scalable.
+* Sometimes our tests light up green even when they are failing - this has to to with our generally unweildy tests implementation.
 
 

@@ -5,6 +5,7 @@ require('dotenv').config()
 var mongoose = require('./database'),
 	Test = require('../models/test'),
 	Exercise = require('../models/exercise'),
+	User = require('../models/user'),
 	Method = require('../models/method')
 
 var methods = [{
@@ -26,12 +27,11 @@ var methods = [{
 ]
 
 var fixedMethod = new Method({
-	name: 'charCodeAt',
+	name: 'fundamentals',
 	language: 'JavaScript',
-	version_added: 'JavaScript 1.2',
-	description: 'This method can be applied to any string and takes an index for an argument. It returns the UTF-16 code of the character at that index.',
-	docs_url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt',
-	slug_url: 'String-charCodeAt'
+	version_added: 'none',
+	description: 'Exercises associated with this method are not specific to any method - just JavaScript fundamentals.',
+	slug_url: 'JS-fundamentals'
 })
 
 var exercises = [
@@ -80,23 +80,49 @@ var exercises = [
 			expectation: 'Hello, fasdfa124isbi45.'
 		},
 	]
+},
+{	name: 'reverseString',
+	// enter the method name, the seeds file will take care of finding the id
+	method: fixedMethod.id,
+	difficulty: 1,
+	prompt: 'Complete the solution so that it reverses the string value passed into it.',
+	tests: [
+		{
+			explanation: 'Test with short word',
+			invocation: "reverseString('bat')",
+			expectation: 'tab'
+		},
+		{
+			explanation: 'Test with medium word.',
+			invocation: "reverseString('Crazy')",
+			expectation: 'yzarC'
+		},
+		{
+			explanation: 'Test with longer word.',
+			invocation: "reverseString('Hippopotamus')",
+			expectation: 'sumatopoppiH'
+		}
+
+	]
 }
 ]
 
+
 Exercise.remove({}, function(err) {
-	if (err) throw err
-	console.log('Cleared exercises.')
-	Method.remove({}, function(err) {
-		if (err) throw err
-		console.log('Cleared methods.')
-		Method.create(methods, function(err, methods) {
-			if (err) throw err
-			fixedMethod.save()
-			console.log(`Seeded ${methods.length + 1} methods.`)
-			Exercise.create(exercises, function(err, exercises) {
-				if (err) throw err
-				console.log(`Seeded ${exercises.length} exercises.`)
-		// Close connection and exit
-				mongoose.connection.close()
-				process.exit()
+    if (err) throw err
+    console.log('Cleared exercises.')
+    Method.remove({}, function(err) {
+        if (err) throw err
+        console.log('Cleared methods.')
+        Method.create(methods, function(err, methods) {
+            if (err) throw err
+            fixedMethod.save()
+            console.log(`Seeded ${methods.length + 1} methods.`)
+            Exercise.create(exercises, function(err, exercises) {
+                if (err) throw err
+                console.log(`Seeded ${exercises.length} exercises.`)
+        // Close connection and exit
+                mongoose.connection.close()
+                process.exit()
+
 })})})})

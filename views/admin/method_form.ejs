@@ -8,27 +8,27 @@
     <%- include(`../partials/header`, {page: `new method`}) %>
 
     <form method="post" action="/methods/new">
-
+<br><br>
       <div class="form-group">
-        <label for="name">Method</label>
+        <label for="name">Method:</label>
         <input class="form-control" type="text" name="name" id="method" placeholder="Ex: Array.prototype.map()">
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="language">Language</label>
+        <label for="language">Language:</label>
         <!-- <input class="form-control" type="text" name="language" id="language" placeholder="Ex: JavaScript, jQuery, ECMAScript 6"> -->
         <select class="form-control" name="language" id="language">
           <option selected="selected">JavaScript</option>
         </select>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Description:</label>
         <textarea class="form-control" rows="3" cols="80" name="description" id="description" placeholder="Add description here..."></textarea>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="version_added">Version</label>
+        <label for="version_added">Version:</label>
         <!-- <input class="form-control" type="text" name="version_added" id="version_added" placeholder="Ex: ECMAScript 2016"> -->
         <select class="form-control" name="version_added" id="version_added">
           <option>JavaScript 1.0</option>
@@ -42,19 +42,19 @@
           <option>JavaScript 1.8</option>
           <option selected="selected">ECMAScript 2015 (6th Edition, ECMA-262)</option>
         </select>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="docs_url">Docs</label>
+        <label for="docs_url">Docs:</label>
         <input class="form-control" type="url" name="docs_url" id="docs_url" placeholder="Ex: https://developer.mozilla.org/...">
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="slug_url">Slug for URL</label>
+        <label for="slug_url">Slug for URL:</label>
         <input class="form-control" type="text" name="slug_url" id="slug_url" placeholder="Ex: Array-map">
-      </div>
+      </div><br><br>
 
-      <input class="btn" type="submit">
+      <input class="exercise-btn" type="submit">
     </form>
 
   </body>

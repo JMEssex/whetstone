@@ -10,7 +10,7 @@
         <div id="prompt">
           <h1><%= exercise.name %></h1>
             <% if (user.local && user.local.isAdmin) { %>
-              <a href="/exercises/<%= exercise.id %>/edit" class="btn btn-default">Edit Exercise</a>
+              <a href="/exercises/<%= exercise.id %>/edit" class="exercise-btn">edit exercise</a>
             <% } %>
           <p><%= exercise.prompt %></p>
         </div>

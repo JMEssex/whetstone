@@ -1,59 +1,58 @@
-// ////////// API PLUMBING //////////
+var express = require('express'),
+    router = express.Router(),
+// Parses information from POST
+    bodyParser = require('body-parser'),
+// Used to manipulate POST methods
+    methodOverride = require('method-override')
 
-// // Basic setup
-// var express = require('express'),
-//     router = express.Router(),
-// // Parses information from POST
-//     bodyParser = require('body-parser'),
-// // Used to manipulate POST methods
-//     methodOverride = require('method-override')
+// Require controllers
+var methods = require('../controllers/methods_controller'),
+    exercises = require('../controllers/exercises_controller')
 
-// // Require controllers
-// var methods = require('../controllers/methods_controller'),
-//     exercises = require('../controllers/exercises_controller')
+// API authentication
 
-// // API authentication
+function checkStandardKey(req, res, next) {
+  if (req.body.client_key == "123456789") return next()
+  res.json({message:"Invalid client key."})
+}
 
-// function checkStandardKey(req, res, next) {
-//   // if (req.body.API == "123456789") return next()
-//   if (true) return next()
-//   res.json({message:"You are not authorized to carry out that action."})
-// }
+function checkAdminKey(req, res, next) {
+  if (req.body.client_key == "adminkey") return next()
+  res.json({message:"Invalid administrator key."})
+};
 
-// function checkAdminKey(req, res, next) {
-//   // if (req.body.API == "lookatmeiamadministrator") return next()
-//   if (true) return next()
-//   res.json({message:"You must be an administrator to carry out that action."})
-// };
+////////// API ROUTES //////////
 
-// ////////// API ROUTES //////////
+// All of these routes are namespaced to begin with /api/
 
-// // All of these routes are namespaced to begin with /api/
+// Root path
+router.get('/', function(req, res){
+	res.json({message: "Welcome to the Whetstone API! For a full list of API endpoints, visit https://github.com/WDI-project-3/whetstone."})
+})
 
-// // Root path
-// router.get('/', function(req, res){
-// 	res.json({message: "Welcome to the Whetstone API! For a full list of API endpoints, visit https://github.com/WDI-project-3/whetstone."})
-// })
+// Method CRUD
+router.route('/methods')
+  .get(methods.indexJSON)
+  .post(checkStandardKey, methods.createJSON)
 
-// // Method CRUD
-// router.route('/methods')
-//   .get(checkStandardKey, methods.indexJSON)
-//   .post(checkStandardKey,  methods.createJSON)
+router.route('/methods/:id')
+  .get(methods.showJSON)
+  .patch(checkAdminKey, methods.updateJSON)
 
-// router.route('/methods/:id')
-//   .get(checkStandardKey,  methods.showJSON)
-//   .patch(checkAdminKey,  methods.updateJSON)
-//   .delete(checkAdminKey,  methods.destroyJSON)
+router.route('/methods-delete/:id')
+  .post(checkAdminKey, methods.destroyJSON)
 
-// // Exercise CRUD
-// router.route('/exercises')
-//   .get(checkStandardKey, exercises.indexJSON)
-//   .post(checkStandardKey,  exercises.createJSON)
+// Exercise CRUD
+router.route('/exercises')
+  .get(exercises.indexJSON)
+  .post(checkAdminKey, exercises.createJSON)
 
-// router.route('/exercises/:id')
-//   .get(checkStandardKey,  exercises.showJSON)
-//   .patch(checkStandardKey,  exercises.updateJSON)
-//   .delete(checkAdminKey,  exercises.destroyJSON)
+router.route('/exercises/:id')
+  .get(exercises.showJSON)
+  .patch(checkAdminKey, exercises.updateJSON)
+
+router.route('/exercises-delete/:id')
+  .post(checkAdminKey, exercises.destroyJSON)
 
 
-// module.exports = router
+module.exports = router

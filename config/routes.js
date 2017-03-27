@@ -1,6 +1,4 @@
-////////// PLUMBING //////////
 
-// Basic setup
 var express = require('express'),
     router = express.Router(),
 // Parses information from POST
@@ -17,19 +15,18 @@ var usersController = require('../controllers/users_controller'),
     completedExercisesController = require('../controllers/completed_exercises_controller')
 
 // Routes helpers
-
 function authenticateUser(request, response, next) {
   // If the user is authenticated, then we continue to the next function
   if (request.isAuthenticated()) return next()
   // If not, redirect them to the login page
-  response.redirect('/login', { message: request.flash('Please log in first.') })
+  response.redirect('/')
 }
 
 function authenticateAdmin(request, response, next) {
   // If the user is authenticated and has admin access, continue to the next function
   if (request.isAuthenticated() && (request.user.local && request.user.local.isAdmin)) return next()
   // If not, redirect them to their dashboard
-  response.redirect('/dashboard', { message: request.flash('You must be an administrator to do that.') })
+  response.redirect('/dashboard')
 };
 
 ////////// ROUTES //////////
@@ -96,14 +93,14 @@ router.route('/methods')
   .get(authenticateUser, methodsController.index)
 
 router.route('/methods/new')
-  .get(authenticateUser,  methodsController.newMethod)
-  .post(authenticateUser,  methodsController.createMethod)
+  .get(authenticateAdmin,  methodsController.newMethod)
+  .post(authenticateAdmin,  methodsController.createMethod)
 
 router.route('/methods/:slug_url/edit')
-  .get(authenticateUser,  methodsController.editMethod)
-  .post(authenticateUser,  methodsController.updateMethod)
+  .get(authenticateAdmin,  methodsController.editMethod)
+  .post(authenticateAdmin,  methodsController.updateMethod)
 
-router.route('/admin/methods/:id/delete')
+router.route('/methods/:slug_url/delete')
   .post(authenticateAdmin,  methodsController.destroyMethod)
 
 
@@ -117,19 +114,17 @@ router.route('/admin/exercises')
 
 
 router.route('/exercises/new')
-  .get(authenticateUser, exercisesController.newExercise)
-  .post(authenticateUser, exercisesController.createExercise)
+  .get(authenticateAdmin, exercisesController.newExercise)
+  .post(authenticateAdmin, exercisesController.createExercise)
 
 router.route('/exercises/:id/edit')
-  .get(authenticateUser, exercisesController.editExercise)
-  .post(authenticateUser, exercisesController.updateExercise)
+  .get(authenticateAdmin, exercisesController.editExercise)
+  .post(authenticateAdmin, exercisesController.updateExercise)
 
 router.route('/exercises/:id')
   .get(authenticateUser, exercisesController.show)
 
 router.route('/exercises/:id/delete')
-  .post(authenticateUser, exercisesController.destroyExercise)
-
-
+  .post(authenticateAdmin, exercisesController.destroyExercise)
 
 module.exports = router

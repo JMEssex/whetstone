@@ -8,14 +8,14 @@
     <%- include(`../partials/header`, {page: `edit exercise`}) %>
 
     <form method="post" action="/exercises/<%= exercise.id %>/edit">
-
+    <br><br>
       <div class="form-group">
-        <label for="name">Exercise Name</label>
+        <label for="name">Exercise Name:</label>
         <input class="form-control" type="text" name="name" id="exercise" placeholder="Exercise name" value=<%= exercise.name %>>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="method">Method</label>
+        <label for="method">Method:</label>
         <select class="form-control" name="method">
           <% methods.forEach(function(curMethod) { %>
             <% if (exercise.method == curMethod.id) { %>
@@ -28,24 +28,22 @@
               </option>
           <% }}) %>
         </select>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="difficulty">Difficulty</label>
+        <label for="difficulty">Difficulty:</label>
         <input class="form-control" type="number" min="1" max="8" name="difficulty" id="difficulty" placeholder="Between 1 and 8" value=<%= exercise.difficulty %>>
-      </div>
+      </div><br>
 
       <div class="form-group">
-        <label for="description">Prompt</label>
+        <label for="description">Prompt:</label>
         <textarea class="form-control" name="prompt" rows="3" cols="80" id="prompt" placeholder="Add description here..."><%= exercise.prompt %> </textarea>
-      </div>
+      </div><br>
 
-      <input class="btn" type="submit">
+      <input class="exercise-btn" type="submit">
     </form>
     <form method="POST" action="/exercises/<%= exercise.id %>/delete">
-      <button class="btn btn-danger"  type="submit" name="destroyExercise">
-        Delete
-      </button>
+      <button class="exercise-btn"  type="submit" name="destroyExercise">Delete</button>
 
   </body>
 </html>

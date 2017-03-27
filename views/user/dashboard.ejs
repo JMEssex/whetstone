@@ -19,7 +19,12 @@
 	        <a href="/exercises"><h2>Do today's exercise.</h2></a>
         <% } %>
 
-          <a href="/methods"><h2>Want more practice?</h2></a>
+
+         <a href="/methods"><h2>Want more practice?</h2></a>
+
+      <br>
+      <hr>
+      <br>
 
         <h2>Completed Exercises</h2>
         <ul id="completed-exercises">
@@ -30,10 +35,13 @@
                 </li>
             <% } %>
         <% } else { %>
-        	<li>No completed exercises.</li>
+        	<li>No completed exercises</li>
         <% } %>
         </ul>
     </div>
+
+
+    <br>
 
 <% if (user.local && user.local.isAdmin) { %>
   <a class="exercise-btn" href="/methods/new" class="btn btn-default">new method</a>

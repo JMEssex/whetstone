@@ -8,29 +8,38 @@
     <%- include(`../partials/header`) %>
 
   <div class="profile-container">
-      <h1> Here is the information and the exercises for <%= method.name %> </h1>
+      <h1>Information and the exercises for <%= method.name %> </h1>
 
-      <p>Language:
+      <p><b>Language:</b>
           <%= method.language %>
       </p>
 
-      <p>Version:
-          <%= method.version_added %>
+      <p><b>Version:</b>
+        <%= method.version_added %>
       </p>
 
-      <p>Description:
+      <br>
+      <hr>
+      <br>
+
+      <p><b>Description:</b>
           <%= method.description %>
       </p>
 
-      <p>More Documentation:
-          <%= method.docs_url %>
+      <% if (method.docs_url){ %>
+      <p><b>More Documentation:</b>
+        <a href= <%= method.docs_url %>> <%= method.docs_url %></a>
       </p>
+      <% } %>
 
+      <br>
       <br>
 
       <!-- Buttons to edit and delete -->
         <% if (user.local && user.local.isAdmin) { %>
-      <a href="/methods/<%= method.slug_url %>/edit" class="exercise-btn">edit method</a>
+
+      <a href="/methods/<%= method.slug_url %>/edit" class="exercise-btn">Edit method</a>
+
         <% } %>
 
 
@@ -48,6 +57,7 @@
           </ul>
         </article>
       </div>
+<<<<<<< HEAD
   </div>
 
   <br><hr><br>
@@ -59,5 +69,10 @@
     </style>
     <div id="mdn-wiki-content" data="<%= method.docs_url %>"></div>
   </div>
+=======
+
+
+      </div>
+>>>>>>> b4bec8b88e6648381793a673db598c543f373eec
   </body>
 </html>
